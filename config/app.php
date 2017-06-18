@@ -15,7 +15,7 @@ return [
   |
   | Here you may provide the name of your application
   */
-  'name' => 'Local',
+  'name' => 'Roch Blondiaux',
 
   /*
   |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
   |
   | /!\ Please don't modify this value unless you are an expert /!\
   */
-  'salt1' => 'oiahlwcp1wdh9hmld8dsjvib3',
+  'salt1' => 'fnz8rsj7vt7xw77hucgetctdj',
 
 
   /*
@@ -52,6 +52,6 @@ return [
   |
   | /!\ Please don't modify this value unless you are an expert /!\
   */
-  'salt2' => 'zmdyy5atd7rh5nkmnn7m8utm6',
+  'salt2' => 'gyc344lgs86o1eapqfp7uut7d',
 
 ];

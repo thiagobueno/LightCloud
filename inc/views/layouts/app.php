@@ -71,6 +71,7 @@
                 <ul class="nav side-menu">
                   <li><a href="<?=APP_URL?>/admin/"><i class="fa fa-home"></i> Home</a></li>
                   <li><a href="<?=APP_URL?>/admin/files"><i class="fa fa-files-o"></i> Files</a></li>
+                  <li><a href="<?=APP_URL?>/admin/settings"><i class="fa fa-gears"></i> Settings</a></li>
                 </ul>
               </div>
               <?php } ?>
@@ -79,7 +80,7 @@
 
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
+              <a href="<?=APP_URL?>/settings" data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="FullScreen">
@@ -111,10 +112,9 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="<?=APP_URL?>/profile"> Profile</a></li>
                     <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
+                      <a href="<?=APP_URL?>/settings">
                         <span>Settings</span>
                       </a>
                     </li>

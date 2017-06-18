@@ -19,7 +19,7 @@ class AdminController extends Controller
     $this->middleware('InstallMiddleware');
   }
 
-  public function admin()
+  public function home()
   {
     echo $this->templates->render('home');
   }
@@ -27,6 +27,59 @@ class AdminController extends Controller
   public function files()
   {
     echo $this->templates->render('files');
+  }
+
+  public function settings()
+  {
+    echo $this->templates->render('settings');
+  }
+
+  public function updateApp()
+  {
+    if(!empty($_POST['name']) && !empty($_POST['url']))
+    {
+      $search  = array(APP_URL, APP_NAME);
+      $replace = array($_POST['url'], $_POST['name']);
+      $file = file_get_contents(__DIR__ . '/../../config/app.php');
+      $file = str_replace($search, $replace, $file);
+      if(file_put_contents(__DIR__ . '/../../config/app.php', $file))
+      {
+        $alert = new Alert('SUCCESS', 'The configuration of your application has been saved successfully !', 'fa fa-check-circle', 'success');
+        $alert->setRedirection(5, APP_URL . '/admin/settings');
+        echo $alert->render();
+      }else{
+        $alert = new Alert('ERROR', 'Please make sure that the file <code>storage/config/app.php</code> have <code>644</code> permissions !', 'fa fa-close', 'error');
+        echo $alert->render();
+      }
+    }else{
+      $alert = new Alert('ERROR', 'Missing arguments !', 'fa fa-close', 'error');
+      echo $alert->render();
+    }
+  }
+
+  public function updateDatabase()
+  {
+    if(!empty($_POST['host']) && !empty($_POST['name']) && !empty($_POST['charset']) && !empty($_POST['port']) && !empty($_POST['user']))
+    {
+      if(empty($_POST['password'])) $_POST['password'] = '';
+
+      $search  = array(DB_HOST, DB_NAME, DB_CHARSET, DB_PORT, DB_USER, DB_PASSWORD);
+      $replace = array($_POST['host'], $_POST['name'], $_POST['charset'], $_POST['port'], $_POST['user'], $_POST['password']);
+      $file = file_get_contents(__DIR__ . '/../../config/database.php');
+      $file = str_replace($search, $replace, $file);
+      if(file_put_contents(__DIR__ . '/../../config/database.php', $file))
+      {
+        $alert = new Alert('SUCCESS', 'The configuration of your database has been saved successfully !', 'fa fa-check-circle', 'success');
+        $alert->setRedirection(5, APP_URL . '/admin/settings');
+        echo $alert->render();
+      }else{
+        $alert = new Alert('ERROR', 'Please make sure that the file <code>storage/config/database.php</code> have <code>644</code> permissions !', 'fa fa-close', 'error');
+        echo $alert->render();
+      }
+    }else{
+      $alert = new Alert('ERROR', 'Missing arguments !', 'fa fa-close', 'error');
+      echo $alert->render();
+    }
   }
 
 }

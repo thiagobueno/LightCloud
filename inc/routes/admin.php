@@ -10,5 +10,8 @@
 /** GET **/
 $router->get('/admin', 'AdminController@home');
 $router->get('/admin/files', 'AdminController@files');
+$router->get('/admin/settings', 'AdminController@settings');
 
 /** POST **/
+$router->post('/admin/app/update', 'AdminController@updateApp');
+$router->post('/admin/database/update', 'AdminController@updateDatabase');
