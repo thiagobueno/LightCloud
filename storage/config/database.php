@@ -10,48 +10,61 @@
 return [
   /*
   |--------------------------------------------------------------------------
-  | App name
+  | Database host
   |--------------------------------------------------------------------------
   |
-  | Here you may provide the name of your application
+  | Here you may provide the host address of the database
+  |
   */
-  'name' => 'Local',
+  'host' => '%host%',
 
   /*
   |--------------------------------------------------------------------------
-  | App url
+  | Database name
   |--------------------------------------------------------------------------
   |
-  | Here you may provide the url of your application
+  | Here you may provide the name of the database
+  |
   */
-  'url' => 'http://light-cloud.local',
+  'name' => '%name%',
 
   /*
   |--------------------------------------------------------------------------
-  | App version
+  | Database charset
   |--------------------------------------------------------------------------
   |
-  | /!\ Please don't modify this value /!\
+  | Here you may provide the charset of the database
+  |
   */
-  'version' => '0.1',
+  'charset' => '%charset%',
 
   /*
   |--------------------------------------------------------------------------
-  | Security salt 1
+  | Database port
   |--------------------------------------------------------------------------
   |
-  | /!\ Please don't modify this value unless you are an expert /!\
+  | Here you may provide the port of the database
+  |
   */
-  'salt1' => 'oiahlwcp1wdh9hmld8dsjvib3',
-
+  'port' => %port%,
 
   /*
   |--------------------------------------------------------------------------
-  | Security salt 2
+  | Database user
   |--------------------------------------------------------------------------
   |
-  | /!\ Please don't modify this value unless you are an expert /!\
+  | Here you may provide the username of the database
+  |
   */
-  'salt2' => 'zmdyy5atd7rh5nkmnn7m8utm6',
+  'user' => '%user%',
 
+  /*
+  |--------------------------------------------------------------------------
+  | Database password
+  |--------------------------------------------------------------------------
+  |
+  | Here you may provide the password of the database
+  |
+  */
+  'password' => '%password%'
 ];

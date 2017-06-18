@@ -85,7 +85,7 @@ class Auth
 
       if($query->rowCount() == 0)
       {
-        $query =  Database::instance()->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
+        $query = Database::instance()->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
 
         if($query->execute([
           'email' => $email,

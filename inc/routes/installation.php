@@ -7,4 +7,15 @@
  * All rights reserved. This file or any portion thereof MUST contain the following copyrights.
  */
 
-$router->get('/installation', 'installationController@home');
+/** GET **/
+$router->get('/installation', 'InstallationController@home');
+$router->get('/installation/config', 'InstallationController@config');
+$router->get('/installation/database', 'InstallationController@database');
+$router->get('/installation/user', 'InstallationController@user');
+$router->get('/installation/finish', 'InstallationController@finish');
+
+/** POST **/
+$router->post('/installation/config', 'InstallationController@app');
+$router->post('/installation/database', 'InstallationController@database_');
+$router->post('/installation/user', 'InstallationController@user_');
+$router->post('/installation/finish', 'InstallationController@finish_');

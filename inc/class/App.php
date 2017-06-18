@@ -19,7 +19,8 @@ class App
 
     $this->loadConfig();
     $this->loadClass();
-    $this->loadDatabase();
+    if(App::isInstalled())
+      $this->loadDatabase();
     $this->loadMiddlewares();
     $this->loadControllers();
     $this->loadRoutes();
@@ -27,13 +28,18 @@ class App
 
   private function loadConfig()
   {
-    $app = require_once __DIR__ . '/../../config/app.php';
+    if(!App::isInstalled() && !file_exists(__DIR__ . '/../../config/app.php'))
+    {
+      define('APP_URL', (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]");
+    }else{
+      $app = require_once __DIR__ . '/../../config/app.php';
 
-    define('APP_URL', $app['url']);
-    define('APP_NAME', $app['name']);
-    define('APP_VERSION', $app['version']);
-    define('SALT_1', $app['salt1']);
-    define('SALT_2', $app['salt2']);
+      define('APP_URL', $app['url']);
+      define('APP_NAME', $app['name']);
+      define('APP_VERSION', $app['version']);
+      define('SALT_1', $app['salt1']);
+      define('SALT_2', $app['salt2']);
+    }
   }
 
   private function loadClass()
