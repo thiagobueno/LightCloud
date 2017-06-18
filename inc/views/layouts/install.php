@@ -9,6 +9,8 @@
     <meta name="description" content="An another opensource cloud system.">
     <meta name="author" content="Roch Blondiaux">
 
+    <link rel="shortcut icon" href="<?=APP_URL?>/inc/assets/images/favicon.ico" type="image/x-icon">
+    
     <!-- Bootstrap -->
     <link href="<?=APP_URL?>/inc/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->

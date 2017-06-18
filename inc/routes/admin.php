@@ -7,14 +7,8 @@
  * All rights reserved. This file or any portion thereof MUST contain the following copyrights.
  */
 
-abstract class Controller
-{
+/** GET **/
+$router->get('/admin', 'AdminController@home');
+$router->get('/admin/files', 'AdminController@files');
 
-  private $pdo;
-
-  protected function middleware($name)
-  {
-    $middleware = new $name();
-    $middleware->handle();
-  }
-}
+/** POST **/

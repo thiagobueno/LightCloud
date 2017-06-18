@@ -30,6 +30,7 @@ class Alert
     $this->setRedirect(true);
     $this->setTime($time);
     $this->setUrl($url);
+    $this->setContent($this->getContent() . ' <small><i class="fa fa-refresh fa-spin fa-fw"></i> The page will refresh in ' . $this->getTime() . ' seconds</small>');
   }
 
   public function render()

@@ -7,14 +7,12 @@
  * All rights reserved. This file or any portion thereof MUST contain the following copyrights.
  */
 
-abstract class Controller
+class AdminMiddleware extends Middleware
 {
 
-  private $pdo;
-
-  protected function middleware($name)
+  public function handle()
   {
-    $middleware = new $name();
-    $middleware->handle();
+    if($_SESSION['rank'] < 2)
+      header('Location: ' . APP_URL . '/');
   }
 }

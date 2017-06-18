@@ -49,6 +49,8 @@ class App
     Autoloader::loadClass('User');
     Autoloader::loadClass('Auth');
     Autoloader::loadClass('Alert');
+    Autoloader::loadClass('File');
+    Autoloader::loadClass('FileUploader');
   }
 
   private function loadDatabase()
@@ -63,6 +65,7 @@ class App
     Autoloader::loadMiddleware('InstalledMiddleware');
     Autoloader::loadMiddleware('AuthMiddleware');
     Autoloader::loadMiddleware('UnauthMiddleware');
+    Autoloader::loadMiddleware('AdminMiddleware');
   }
 
   private function loadControllers()
@@ -71,6 +74,8 @@ class App
     Autoloader::loadController('InstallationController');
     Autoloader::loadController('HomeController');
     Autoloader::loadController('AuthController');
+    Autoloader::loadController('FilesController');
+    Autoloader::loadController('AdminController');
   }
 
   private function loadRoutes()
@@ -78,6 +83,7 @@ class App
     $router = new \Bramus\Router\Router();
 
     Autoloader::loadRoute('web', $router);
+    Autoloader::loadRoute('admin', $router);
     Autoloader::loadRoute('installation', $router);
 
     $router->run();

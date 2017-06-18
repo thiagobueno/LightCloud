@@ -131,11 +131,12 @@ class InstallationController extends Controller
 
   public function user_()
   {
-    $query = Database::instance()->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
+    $query = Database::instance()->prepare('INSERT INTO users (username, email, password, rank) VALUES (:username, :email, :password, :rank)');
     $query->execute([
       'email' => $_POST['email'],
       'username' => $_POST['username'],
       'password' => Auth::hash($_POST['password']),
+      'rank' => 3
     ]);
 
     $alert = new Alert('SUCCESS', 'The user has been created successfuly !', 'fa fa-check-circle', 'success');
