@@ -44,12 +44,16 @@ $users = $users->loadAll();
               </tr>
             </thead>
             <tbody>
-              <?php while($data = $users->fetch()){ ?>
+              <?php
+              while($data = $users->fetch()){
+                $group = new Group();
+                $group->getByID($data['rank']);
+                ?>
                 <tr>
                   <th><?=$data['ID']?></th>
                   <th><?=$data['username']?></th>
                   <th><?=$data['email']?></th>
-                  <th><?php if($data['rank'] > 2){ ?><span class="label label-success">Admin</span><?php }else{ ?><span class="label label-default">Other</span><?php } ?></th>
+                  <th><?php if($group->getAdmin() == 1){ ?><span class="label label-success"><?=$group->getName()?></span><?php }else{ ?><span class="label label-default"><?=$group->getName()?></span><?php } ?></th>
                   <th><?=$data['created_at']?></th>
                   <th><?=$data['updated_at']?></th>
                   <th>SOON</th>

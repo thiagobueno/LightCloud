@@ -13,6 +13,7 @@ abstract class Entity
   protected $pdo;
   protected $table;
   protected $fields = [];
+  private $ID;
 
   public function __construct()
   {
@@ -24,7 +25,7 @@ abstract class Entity
 
   public function closeDatabase()
   {
-    $this->setPdo(null);
+    $this->setPdo('');
   }
 
   public function openDatabase()
@@ -150,6 +151,29 @@ abstract class Entity
   }
 
 
+      /**
+       * Get the value of ID
+       *
+       * @return mixed
+       */
+      public function getID()
+      {
+          return $this->ID;
+      }
+
+      /**
+       * Set the value of ID
+       *
+       * @param mixed debug
+       *
+       * @return self
+       */
+      public function setID($ID)
+      {
+          $this->ID = $ID;
+
+          return $this;
+      }
 
 
 

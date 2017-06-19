@@ -68,7 +68,7 @@
                   <li><a href="<?=APP_URL?>/settings"><i class="fa fa-gears"></i> My Settings</a></li>
                 </ul>
               </div>
-              <?php if($_SESSION['rank'] > 2){ ?>
+              <?php if(User::isAdmin()){ ?>
                 <div class="menu_section">
                 <h3>Admin</h3>
                 <ul class="nav side-menu">

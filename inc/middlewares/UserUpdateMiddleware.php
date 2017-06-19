@@ -7,12 +7,12 @@
  * All rights reserved. This file or any portion thereof MUST contain the following copyrights.
  */
 
-class AdminMiddleware extends Middleware
+class UserUpdateMiddleware extends Middleware
 {
 
   public function handle()
   {
-    if(!User::isAdmin())
-      header('Location: ' . APP_URL . '/');
+    $user = new User();
+    $user->setup(User::getUserData()->ID);
   }
 }

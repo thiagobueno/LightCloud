@@ -53,7 +53,10 @@ $files->execute([
                   <td><?php if($data['public'] == 0){ ?><span class="label label-danger"><i class="fa fa-lock"><i/> Private</span><?php }else{ ?><span class="label label-success"><i class="fa fa-unlock"><i/> Public</span><?php } ?></td>
                   <td><?=$data['created_at'];?></td>
                   <td>
+                    <?php if(User::getUserData()->group_download_files){ ?>
                     <a href="<?=APP_URL . '/storage/uploads/' . $data['temp']?>" download="<?=$data['name']?>.<?=$data['extension']?>" class="btn btn-primary btn-sm"><i class="fa fa-download"></i> Download</a>
+                    <?php } ?>
+
                     <?php if($data['public'] == 0){ ?>
                       <a class="btn btn-success btn-sm publicBtn" id="<?=$data['ID']?>"><i class="fa fa-unlock"></i> Public</a>
                     <?php }else{ ?>

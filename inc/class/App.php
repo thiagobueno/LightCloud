@@ -52,6 +52,7 @@ class App
     Autoloader::loadClass('File');
     Autoloader::loadClass('FileUploader');
     Autoloader::loadClass('Notification');
+    Autoloader::loadClass('Group');
   }
 
   private function loadDatabase()
@@ -67,6 +68,7 @@ class App
     Autoloader::loadMiddleware('AuthMiddleware');
     Autoloader::loadMiddleware('UnauthMiddleware');
     Autoloader::loadMiddleware('AdminMiddleware');
+    Autoloader::loadMiddleware('UserUpdateMiddleware');
   }
 
   private function loadControllers()

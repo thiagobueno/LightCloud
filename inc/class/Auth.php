@@ -53,6 +53,9 @@ class Auth
       {
         $data = $query->fetch();
 
+        $user = new User();
+        $user->setup($data['ID']);
+
         $_SESSION['ID'] = $data['ID'];
         $_SESSION['username'] = $data['username'];
         $_SESSION['email'] = $data['email'];
@@ -61,7 +64,7 @@ class Auth
         $_SESSION['updated_at'] = $data['updated_at'];
 
         $alert = new Alert('SUCCESS', 'You\'re logged in !', 'fa fa-check-circle', 'success');
-        $alert->setRedirection(5, APP_URL . '/');
+        $alert->setRedirection(3, APP_URL . '/');
         echo $alert->render();
       }else{
         $notif = new Notification();
@@ -110,7 +113,7 @@ class Auth
           ]);
 
           $alert = new Alert('SUCCESS', 'Your account has been registered !', 'fa fa-check-circle', 'success');
-          $alert->setRedirection(5, APP_URL . '/login');
+          $alert->setRedirection(3, APP_URL . '/login');
           echo $alert->render();
         }else{
           $alert = new Alert('ERROR', 'While registering your account, please retry !', 'fa fa-close', 'error');

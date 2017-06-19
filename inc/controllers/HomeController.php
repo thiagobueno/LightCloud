@@ -16,6 +16,7 @@ class HomeController extends Controller
 
     $this->middleware('AuthMiddleware');
     $this->middleware('InstallMiddleware');
+    $this->middleware('UserUpdateMiddleware');
 
     $this->pdo = Database::instance();
   }

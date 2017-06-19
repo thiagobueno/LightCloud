@@ -136,7 +136,7 @@ class InstallationController extends Controller
       'email' => $_POST['email'],
       'username' => $_POST['username'],
       'password' => Auth::hash($_POST['password']),
-      'rank' => 3
+      'rank' => 1
     ]);
 
     $alert = new Alert('SUCCESS', 'The user has been created successfuly !', 'fa fa-check-circle', 'success');
