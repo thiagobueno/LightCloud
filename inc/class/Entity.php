@@ -72,6 +72,15 @@ abstract class Entity
     if(!$query->execute() && $this->debug == true) die('[DEBUG] : ERROR WHILE DROPING ' . $this->table . ' TABLE ON ' . get_class($this) . ' !');
   }
 
+  public function loadAll()
+  {
+    $query = 'SELECT * FROM ' . $this->table;
+    $query = $this->getPdo()->prepare($query);
+    if($query->execute())
+      return $query;
+    elseif($this->getDebug()) die('[DEBUG] : ERROR WHILE LOADING OBJECTS ON : ' . get_class($this));
+  }
+
   public function load($columns)
   {
     $where = ' WHERE ';
@@ -86,10 +95,9 @@ abstract class Entity
 
     $query = 'SELECT * FROM ' . $this->table . ' ' . $where . ';';
     $query = $this->getPdo()->prepare($query);
-
-    if(!$query->execute() && $this->debug == true) die('[DEBUG] : ERROR WHILE FETCHING OBJECTS ON ' . get_class($this));
-
-    return $query->fetch();
+    if($query->execute())
+      return $query;
+    elseif($this->getDebug()) die('[DEBUG] : ERROR WHILE LOADING OBJECTS ON : ' . get_class($this));
   }
 
   public function findOrFail($id)

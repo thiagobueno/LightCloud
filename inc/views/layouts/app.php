@@ -74,6 +74,7 @@
                 <ul class="nav side-menu">
                   <li><a href="<?=APP_URL?>/admin/"><i class="fa fa-home"></i> Home</a></li>
                   <li><a href="<?=APP_URL?>/admin/files"><i class="fa fa-files-o"></i> Files</a></li>
+                  <li><a href="<?=APP_URL?>/admin/users"><i class="fa fa-users"></i> Users</a></li>
                   <li><a href="<?=APP_URL?>/admin/settings"><i class="fa fa-gears"></i> Settings</a></li>
                 </ul>
               </div>
@@ -132,7 +133,7 @@
                 /** Count **/
                 $notifs_ = $notif->count(['email' => $_SESSION['email']]);
                 /** Get all notifs **/
-                $notifs = $notif->showAll();
+                $notifs = $notif->load(['email' => $_SESSION['email']]);
                 ?>
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">

@@ -34,6 +34,11 @@ class AdminController extends Controller
     echo $this->templates->render('settings');
   }
 
+  public function users()
+  {
+    echo $this->templates->render('users');
+  }
+
   public function updateApp()
   {
     if(!empty($_POST['name']) && !empty($_POST['url']))

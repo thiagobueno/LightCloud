@@ -2,7 +2,8 @@
 $this->layout('layouts::app');
 
 $notif = new Notification();
-$notif = $notif->findOrFail(NOTIFICATION_ID);
+$notif = $notif->load(['ID' => NOTIFICATION_ID]);
+$notif = $notif->fetch();
 ?>
 
 <div class="">

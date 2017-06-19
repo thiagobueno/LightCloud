@@ -28,13 +28,5 @@ class Notification extends Entity
     ]);
   }
 
-  public function showAll()
-  {
-    $query = $this->pdo->prepare('SELECT * FROM notifications WHERE email=:email');
-    $query->execute([
-      'email' => $_SESSION['email']
-    ]);
-    return $query;
-  }
 
 }

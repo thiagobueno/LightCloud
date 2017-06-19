@@ -8,25 +8,17 @@
 <link href="<?=APP_URL?>/inc/assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
 <?php
-$notif = new Notification();
-$notifs = $notif->load(['email' => $_SESSION['email']]);
+$users = new User();
+$users = $users->loadAll();
 ?>
 
 <div class="row">
-
-  <div class="page-title">
-    <div class="title_left">
-      <h3><i class="fa fa-bell-o"></i> Notifications</h3>
-    </div>
-  </div>
-
-  <div class="clearfix"></div>
 
   <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>My Notifications</h2>
+          <h2><i class="fa fa-users"></i> Users</h2>
           <ul class="nav navbar-right panel_toolbox">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
             </li>
@@ -42,30 +34,37 @@ $notifs = $notif->load(['email' => $_SESSION['email']]);
           <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Creation date</th>
-                <th>Actions</th>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Group</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <?php while($data = $notifs->fetch()){ ?>
-                <tr id="tr-<?=$data['ID']?>">
-                  <td><?=$data['title'];?></td>
-                  <td><?=$data['content'];?></td>
-                  <td><?=$data['created_at'];?></td>
-                  <td>
-                    <a id="<?=$data['ID']?>" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash"></i> Delete</a>
-                  </td>
+              <?php while($data = $users->fetch()){ ?>
+                <tr>
+                  <th><?=$data['ID']?></th>
+                  <th><?=$data['username']?></th>
+                  <th><?=$data['email']?></th>
+                  <th><?php if($data['rank'] > 2){ ?><span class="label label-success">Admin</span><?php }else{ ?><span class="label label-default">Other</span><?php } ?></th>
+                  <th><?=$data['created_at']?></th>
+                  <th><?=$data['updated_at']?></th>
+                  <th>SOON</th>
                 </tr>
               <?php } ?>
             </tbody>
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Creation date</th>
-                <th>Actions</th>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Group</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+                <th>Action</th>
               </tr>
             </thead>
           </table>
@@ -79,11 +78,37 @@ $notifs = $notif->load(['email' => $_SESSION['email']]);
 
 <script>
 $(".deleteBtn").on("click", function(){
+  var ID = $(this).attr('file');
+  $.ajax({
+    url: "<?=APP_URL?>/files/delete",
+    type: "POST",
+    data: "file="+$(this).attr('id'),
+    success: function()
+    {
+      $("#tr-"+ID).fadeOut();
+    }
+  });
+});
+
+$(".privateBtn").on("click", function(){
   var ID = $(this).attr('id');
   $.ajax({
-    url: "<?=APP_URL?>/notifications/delete",
+    url: "<?=APP_URL?>/files/private",
     type: "POST",
-    data: "ID="+ID,
+    data: "file="+$(this).attr('id'),
+    success: function(data)
+    {
+      $("#result").append(data);
+    }
+  });
+});
+
+$(".publicBtn").on("click", function(){
+  var ID = $(this).attr('id');
+  $.ajax({
+    url: "<?=APP_URL?>/files/public",
+    type: "POST",
+    data: "file="+$(this).attr('id'),
     success: function(data)
     {
       $("#result").append(data);
