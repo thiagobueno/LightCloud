@@ -21,5 +21,21 @@ $router->get('/profile', 'HomeController@profile');
 $router->get('/settings', 'HomeController@settings');
 $router->post('/user/update', 'HomeController@updateUser');
 
+/** Notifications **/
+$router->get('/notifications', 'NotificationsController@home');
+$router->get('/notifications/(\d+)', 'NotificationsController@notif');
+$router->post('/notifications/delete', 'NotificationsController@delete');
+
 /** Auth **/
 Auth::routes($router);
+
+/** Tests **/
+$router->get('/test', function(){
+  $notif = new Notification();
+  $notif->add([
+    'title' => 'test',
+    'content' => 'Ceci est un autre test',
+    'icon' => 'fa fa-test',
+    'email' => 'contact@roch-blondiaux.com'
+  ]);
+});

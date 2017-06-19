@@ -63,6 +63,9 @@
                 <ul class="nav side-menu">
                   <li><a href="<?=APP_URL?>/"><i class="fa fa-home"></i> Home</a></li>
                   <li><a href="<?=APP_URL?>/files"><i class="fa fa-files-o"></i> My Files</a></li>
+                  <li><a href="<?=APP_URL?>/notifications"><i class="fa fa-bell-o"></i> My Notifications</a></li>
+                  <li><a href="<?=APP_URL?>/profile"><i class="fa fa-user"></i> My account</a></li>
+                  <li><a href="<?=APP_URL?>/settings"><i class="fa fa-gears"></i> My Settings</a></li>
                 </ul>
               </div>
               <?php if($_SESSION['rank'] > 2){ ?>
@@ -118,68 +121,42 @@
                         <span>Settings</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Help</a></li>
+                    <li><a href="<?=APP_URL?>/help">Help</a></li>
                     <li><a href="<?=APP_URL?>/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
+                <!-- Notifications -->
+                <?php
+                $notif = new Notification();
+                /** Count **/
+                $notifs_ = $notif->count(['email' => $_SESSION['email']]);
+                /** Get all notifs **/
+                $notifs = $notif->showAll();
+                ?>
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-bell-o"></i>
-                    <span class="badge bg-green">6</span>
+                    <span class="badge bg-green"><?=$notifs_?></span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
+                    <?php while($data = $notifs->fetch()){ ?>
+                      <li>
+                        <a href="<?=APP_URL?>/notifications/<?=$data['ID']?>">
+                          <span class="image"><i class="<?=$data['icon']?>"></i></span>
+                          <span>
+                            <span><?=$data['title']?></span>
+                            <span class="time"><?=$data['created_at']?></span>
+                          </span>
+                          <span class="message">
+                            <?=$data['content']?>
+                          </span>
+                        </a>
+                      </li>
+                    <?php } ?>
                     <li>
                       <div class="text-center">
-                        <a>
+                        <a href="<?=APP_URL?>/notifications">
                           <strong>See All Notifications</strong>
                           <i class="fa fa-angle-right"></i>
                         </a>

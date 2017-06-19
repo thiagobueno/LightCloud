@@ -48,7 +48,7 @@ class HomeController extends Controller
         $_SESSION['username'] = $_POST['name'];
         $_SESSION['email'] = $_POST['email'];
 
-        $alert = new Alert('SUCCESS', 'Your account has been updated successfuly !', 'fa fa-check-circle', 'success');
+        $alert = new Alert('SUCCESS', 'Your account has been updated successfully !', 'fa fa-check-circle', 'success');
         $alert->setRedirection(3, APP_URL . '/settings');
         echo $alert->render();
       }else{

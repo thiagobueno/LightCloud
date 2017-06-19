@@ -304,6 +304,13 @@ class FileUploader {
                 'path' => $metas['tmp_name'],
                 'temp' => $data['files'][$key]['name']
               ]);
+              $notif = new Notification();
+              $notif->add([
+                'title' => 'File added',
+                'content' => 'Your file has been save successfully.',
+                'icon' => 'fa fa-check-circle',
+                'email' => $_SESSION['email']
+              ]);
                         } else {
                             unset($data['files'][$key]);
                         }

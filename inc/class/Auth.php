@@ -64,6 +64,14 @@ class Auth
         $alert->setRedirection(5, APP_URL . '/');
         echo $alert->render();
       }else{
+        $notif = new Notification();
+        $notif->add([
+          'title' => 'Log in failed',
+          'content' => 'The following IP ' . User::getIp() . ' tried to connect to your account without success.',
+          'icon' => 'fa fa-lock',
+          'email' => $_POST['email']
+        ]);
+
         $alert = new Alert('ERROR', 'Please check your email and your password !', 'fa fa-close', 'error');
         echo $alert->render();
       }
@@ -93,6 +101,14 @@ class Auth
           'password' => Auth::hash($password)
         ]))
         {
+          $notif = new Notification();
+          $notif->add([
+            'title' => 'Complete registration',
+            'content' => 'Welcome to ' . APP_NAME . ', thank you for registering, enjoy',
+            'icon' => 'fa fa-check-circle',
+            'email' => $_POST['email']
+          ]);
+
           $alert = new Alert('SUCCESS', 'Your account has been registered !', 'fa fa-check-circle', 'success');
           $alert->setRedirection(5, APP_URL . '/login');
           echo $alert->render();

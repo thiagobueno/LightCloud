@@ -51,6 +51,7 @@ class App
     Autoloader::loadClass('Alert');
     Autoloader::loadClass('File');
     Autoloader::loadClass('FileUploader');
+    Autoloader::loadClass('Notification');
   }
 
   private function loadDatabase()
@@ -76,6 +77,7 @@ class App
     Autoloader::loadController('AuthController');
     Autoloader::loadController('FilesController');
     Autoloader::loadController('AdminController');
+    Autoloader::loadController('NotificationsController');
   }
 
   private function loadRoutes()

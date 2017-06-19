@@ -46,7 +46,7 @@ class FilesController extends Controller
         'public' => 1,
         'ID' => $_POST['file']
       ])){
-        $alert = new Alert('SUCCCESS', 'The file has been updated successfuly !', 'fa fa-check-circle', 'success');
+        $alert = new Alert('SUCCCESS', 'The file has been updated successfully !', 'fa fa-check-circle', 'success');
         $alert->setRedirection(3, APP_URL . '/files');
         echo $alert->render();
       }else{
@@ -68,7 +68,7 @@ class FilesController extends Controller
         'public' => 0,
         'ID' => $_POST['file']
       ])){
-        $alert = new Alert('SUCCCESS', 'The file has been updated successfuly !', 'fa fa-check-circle', 'success');
+        $alert = new Alert('SUCCCESS', 'The file has been updated successfully !', 'fa fa-check-circle', 'success');
         $alert->setRedirection(3, APP_URL . '/files');
         echo $alert->render();
       }else{
@@ -93,7 +93,15 @@ class FilesController extends Controller
 
 
         if(file_exists($file))
-    		unlink($file);
+          unlink($file);
+
+          $notif = new Notification();
+          $notif->add([
+            'title' => 'File deleted',
+            'content' => 'Your file has been delete successfully.',
+            'icon' => 'fa fa-lock',
+            'email' => $_SESSION['email']
+          ]);
     }
   }
 

@@ -22,28 +22,48 @@ abstract class Entity
 
   abstract function setFields();
 
-  protected function closeDatabase()
+  public function closeDatabase()
   {
     $this->setPdo(null);
   }
 
-  protected function openDatabase()
+  public function openDatabase()
   {
     $this->setPdo(Database::instance());
   }
 
   /** SQL **/
 
-  protected function create()
+  public function create()
   {
-    $query = file_get_contents(__DIR__ . '/../../storage/tables/' . $this->table . '.sql');
-    $query = $this->getPdo()->prepare($query);
+    $query_ = file_get_contents(__DIR__ . '/../../storage/tables/' . $this->table . '.sql');
+    $query = $this->getPdo()->prepare($query_);
 
-    if($this->debug == true) echo '[DEBUG] : REQUEST => ' . $query;
+    if($this->debug == true) echo '[DEBUG] : REQUEST => ' . $query_;
     if(!$query->execute() && $this->debug == true) die('[DEBUG] : ERROR WHILE CREATING ' . $this->table . ' TABLE ON ' . get_class($this) . ' !');
   }
 
-  protected function drop()
+  public function add($fields)
+  {
+    $columns = '';
+    $values = '';
+
+    if(sizeof($fields) != 0){
+      $i=false;
+      foreach($fields as $column=>$value){
+          if($i){$values .=', '; $columns .=', ';}else{$i=true;}
+          $values .= "'" . $value . "'";
+          $columns .= $column;
+      }
+    }elseif($this->getDebug() == true) die('[DEBUG] : ERROR WHILE ADDING OBJECT ON : ' . get_class($this));
+
+    $query = 'INSERT INTO ' . $this->table . ' (' . $columns . ') VALUES (' . $values . ') ';
+    $query = $this->getPdo()->prepare($query);
+    if($query->execute()) return true;
+    else return false;
+  }
+
+  public function drop()
   {
     $query = 'DROP TABLE `' . $this->table . '`;';
     $query = $this->getPdo()->prepare($query);
@@ -52,9 +72,8 @@ abstract class Entity
     if(!$query->execute() && $this->debug == true) die('[DEBUG] : ERROR WHILE DROPING ' . $this->table . ' TABLE ON ' . get_class($this) . ' !');
   }
 
-  protected function load($columns)
+  public function load($columns)
   {
-    $objects = [];
     $where = ' WHERE ';
 
     if($columns!=null && sizeof($columns)!=0){
@@ -68,25 +87,17 @@ abstract class Entity
     $query = 'SELECT * FROM ' . $this->table . ' ' . $where . ';';
     $query = $this->getPdo()->prepare($query);
 
-    if($query->execute() && $this->debug == true) die('[DEBUG] : ERROR WHILE FETCHING OBJECTS ON ' . get_class($this));
-    while($queryReturn = $execQuery->fetchArray()){
-			$object = new $this();
-			foreach($this->fields as $field => $type)
-				if(isset($queryReturn[$field])) $object->$field= html_entity_decode( addslashes($queryReturn[$field]));
+    if(!$query->execute() && $this->debug == true) die('[DEBUG] : ERROR WHILE FETCHING OBJECTS ON ' . get_class($this));
 
-			$objects[] = $object;
-			unset($object);
-		}
-
-    return $objects;
+    return $query->fetch();
   }
 
-  protected function findOrFail($id)
+  public function findOrFail($id)
   {
     return $this->load(['ID' => $id]);
   }
 
-  protected function count($columns)
+  public function count($columns)
   {
     $where = ' WHERE ';
 
@@ -104,14 +115,14 @@ abstract class Entity
     return $query->rowCount();
   }
 
-  protected function customQuery($sql)
+  public function customQuery($sql)
   {
     $query = $this->getPdo()->prepare($sql);
 
     return $query->execute();
   }
 
-  protected function checkTable()
+  public function checkTable()
   {
     $query = 'SELECT count(*) as numRows FROM sqlite_master WHERE type="table" AND name="'.$this->table.'"';
     $query = $this->getPdo()->prepare($query);
