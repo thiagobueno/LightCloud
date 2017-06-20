@@ -90,7 +90,7 @@ abstract class Entity
 				}
     }
 
-    $query = 'SELECT * FROM ' . $this->table . ' ' . $where . ';';
+    $query = 'SELECT * FROM ' . $this->table . ' ' . $where;
     $query = $this->getPdo()->prepare($query);
     if($query->execute())
       return $query;

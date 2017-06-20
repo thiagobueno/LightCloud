@@ -43,8 +43,8 @@ class Auth
   {
     if(!empty($email) && !empty($password))
     {
-      $query = Database::instance()->prepare('SELECT * FROM users WHERE email=:email AND password=:password');
-      $query->execute([
+      $user = new User();
+      $query = $user->load([
         'email' => $email,
         'password' => Auth::hash($password)
       ]);

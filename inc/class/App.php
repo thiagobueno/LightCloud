@@ -54,6 +54,7 @@ class App
     Autoloader::loadClass('Notification');
     Autoloader::loadClass('Group');
     Autoloader::loadClass('Permission');
+    Autoloader::loadClass('Api');
   }
 
   private function loadDatabase()
@@ -81,6 +82,7 @@ class App
     Autoloader::loadController('FilesController');
     Autoloader::loadController('AdminController');
     Autoloader::loadController('NotificationsController');
+    Autoloader::loadController('ApiController');
   }
 
   private function loadRoutes()
@@ -90,6 +92,7 @@ class App
     Autoloader::loadRoute('web', $router);
     Autoloader::loadRoute('admin', $router);
     Autoloader::loadRoute('installation', $router);
+    Autoloader::loadRoute('api', $router);
 
     $router->run();
   }
