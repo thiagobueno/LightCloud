@@ -75,6 +75,7 @@
                   <?php if(User::hasPermission('admin_home')){ ?> <li><a href="<?=APP_URL?>/admin/"><i class="fa fa-home"></i> Home</a></li> <?php } ?>
                   <?php if(User::hasPermission('admin_files')){ ?> <li><a href="<?=APP_URL?>/admin/files"><i class="fa fa-files-o"></i> Files</a></li> <?php } ?>
                   <?php if(User::hasPermission('admin_users')){ ?> <li><a href="<?=APP_URL?>/admin/users"><i class="fa fa-users"></i> Users</a></li> <?php } ?>
+                  <?php if(User::hasPermission('admin_groups')){ ?> <li><a href="<?=APP_URL?>/admin/groups"><i class="fa fa-users"></i> Groups</a></li> <?php } ?>
                   <?php if(User::hasPermission('admin_settings')){ ?> <li><a href="<?=APP_URL?>/admin/settings"><i class="fa fa-gears"></i> Settings</a></li> <?php } ?>
                 </ul>
               </div>

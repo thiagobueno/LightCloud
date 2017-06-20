@@ -11,6 +11,7 @@
 $router->get('/admin', 'AdminController@home');
 $router->get('/admin/files', 'AdminController@files');
 $router->get('/admin/users', 'AdminController@users');
+$router->get('/admin/groups', 'AdminController@groups');
 $router->get('/admin/settings', 'AdminController@settings');
 
 /** POST **/

@@ -43,6 +43,12 @@ class AdminController extends Controller
     echo $this->templates->render('users');
   }
 
+  public function groups()
+  {
+    if(User::hasPermission('admin_groups'))
+    echo $this->templates->render('groups');
+  }
+
   public function updateApp()
   {
     if(!empty($_POST['name']) && !empty($_POST['url']))
