@@ -21,21 +21,25 @@ class AdminController extends Controller
 
   public function home()
   {
-    echo $this->templates->render('home');
+    if(User::hasPermission('admin_home'))
+      echo $this->templates->render('home');
   }
 
   public function files()
   {
-    echo $this->templates->render('files');
+    if(User::hasPermission('admin_files'))
+      echo $this->templates->render('files');
   }
 
   public function settings()
   {
-    echo $this->templates->render('settings');
+    if(User::hasPermission('admin_settings'))
+      echo $this->templates->render('settings');
   }
 
   public function users()
   {
+    if(User::hasPermission('admin_users'))
     echo $this->templates->render('users');
   }
 

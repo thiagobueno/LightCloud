@@ -39,9 +39,6 @@ class User extends Entity
       'updated_at' => $this->getUpdatedAt(),
       'group_ID' => $group->getID(),
       'group_name' => $group->getName(),
-      'group_upload_files' => $group->getUploadFiles(),
-      'group_read_files' => $group->getReadFiles(),
-      'group_download_files' => $group->getDownloadFiles(),
       'group_admin' => $group->getAdmin()
     ]);
   }
@@ -81,6 +78,20 @@ class User extends Entity
   public static function getUserData()
   {
     return json_decode($_SESSION['user']);
+  }
+
+  public static function getGroup()
+  {
+    $group = new Group();
+    $group->getByID($_SESSION['rank']);
+    return $group;
+  }
+
+  public static function hasPermission($name)
+  {
+    $group = new Group();
+    $group->getByID($_SESSION['rank']);
+    return $group->hasPermission($name);
   }
 
   public static function isAdmin()

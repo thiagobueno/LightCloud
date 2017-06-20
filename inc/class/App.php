@@ -53,6 +53,7 @@ class App
     Autoloader::loadClass('FileUploader');
     Autoloader::loadClass('Notification');
     Autoloader::loadClass('Group');
+    Autoloader::loadClass('Permission');
   }
 
   private function loadDatabase()

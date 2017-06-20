@@ -1,5 +1,5 @@
 <?php $this->layout('layouts::app');
-if(User::getUserData()->group_upload_files == 1){ ?>
+if(User::hasPermission('upload_files')){ ?>
   <div class="row">
     <div class="col-md-12">
       <input type="file" name="files">
@@ -98,4 +98,4 @@ if(User::getUserData()->group_upload_files == 1){ ?>
 
   </script>
 
-<?php }?>
+<?php } ?>

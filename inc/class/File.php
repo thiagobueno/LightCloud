@@ -14,23 +14,7 @@ class File extends Entity
   {
 
   }
-
-  public function setFields()
-  {
-    $this->setFields([
-      'ID' => 'int',
-      'name' => 'string',
-      'extension' => 'string',
-      'size' => 'int',
-      'public' => 'int',
-      'email' => 'string',
-      'path' => 'string',
-      'temp' => 'string',
-      'created_at' => 'timestamp',
-      'updated_at' => 'timestamp'
-    ]);
-  }
-
+  
   public static function formatSize($bytes)
   {
       if ($bytes >= 1073741824)

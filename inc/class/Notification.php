@@ -16,17 +16,5 @@ class Notification extends Entity
     $this->openDatabase();
   }
 
-  public function setFields()
-  {
-    $this->setFields([
-      'ID' => 'int',
-      'title' => 'string',
-      'content' => 'string',
-      'icon' => 'string',
-      'email' => 'string',
-      'created_at' => 'timestamp'
-    ]);
-  }
-
 
 }

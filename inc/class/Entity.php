@@ -12,16 +12,12 @@ abstract class Entity
   protected $debug = true;
   protected $pdo;
   protected $table;
-  protected $fields = [];
   private $ID;
 
   public function __construct()
   {
     $this->openDatabase();
-    $this->setFields();
   }
-
-  abstract function setFields();
 
   public function closeDatabase()
   {
@@ -247,16 +243,6 @@ abstract class Entity
         $this->table = $table;
 
         return $this;
-    }
-
-    /**
-     * Get the value of Fields
-     *
-     * @return mixed
-     */
-    public function getFields()
-    {
-        return $this->fields;
     }
 
 }

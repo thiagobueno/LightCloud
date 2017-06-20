@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 20 Juin 2017 à 17:15
+-- Généré le :  Mar 20 Juin 2017 à 19:50
 -- Version du serveur :  10.1.21-MariaDB
 -- Version de PHP :  5.6.30
 
@@ -23,31 +23,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `groups`
+-- Structure de la table `permissions`
 --
 
-CREATE TABLE `groups` (
+CREATE TABLE `permissions` (
   `ID` int(11) NOT NULL,
   `name` text NOT NULL,
-  `admin` int(11) NOT NULL
+  `group_ID` int(11) NOT NULL,
+  `value` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `groups`
+-- Contenu de la table `permissions`
 --
 
-INSERT INTO `groups` (`ID`, `name`, `admin`) VALUES
-(1, 'Admin', 1),
-(2, 'Default', 0);
+INSERT INTO `permissions` (`ID`, `name`, `group_ID`, `value`) VALUES
+(1, 'upload_files', 0, 1),
+(2, 'download_files', 0, 1);
 
 --
 -- Index pour les tables exportées
 --
 
 --
--- Index pour la table `groups`
+-- Index pour la table `permissions`
 --
-ALTER TABLE `groups`
+ALTER TABLE `permissions`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -55,9 +56,9 @@ ALTER TABLE `groups`
 --
 
 --
--- AUTO_INCREMENT pour la table `groups`
+-- AUTO_INCREMENT pour la table `permissions`
 --
-ALTER TABLE `groups`
+ALTER TABLE `permissions`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

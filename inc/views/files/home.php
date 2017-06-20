@@ -8,6 +8,7 @@
 <link href="<?=APP_URL?>/inc/assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
 <?php
+// FILES
 $files = Database::instance()->prepare('SELECT * FROM files WHERE email=:email');
 $files->execute([
   'email' => $_SESSION['email']
@@ -53,7 +54,7 @@ $files->execute([
                   <td><?php if($data['public'] == 0){ ?><span class="label label-danger"><i class="fa fa-lock"><i/> Private</span><?php }else{ ?><span class="label label-success"><i class="fa fa-unlock"><i/> Public</span><?php } ?></td>
                   <td><?=$data['created_at'];?></td>
                   <td>
-                    <?php if(User::getUserData()->group_download_files){ ?>
+                    <?php if(User::hasPermission('download_files')){ ?>
                     <a href="<?=APP_URL . '/storage/uploads/' . $data['temp']?>" download="<?=$data['name']?>.<?=$data['extension']?>" class="btn btn-primary btn-sm"><i class="fa fa-download"></i> Download</a>
                     <?php } ?>
 
