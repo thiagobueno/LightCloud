@@ -16,23 +16,38 @@ class ApiController extends Controller
 
   public function getUsers()
   {
-    $users = new User();
-    $users = $users->loadAll();
-    echo json_encode($users->fetchAll());
+    if(User::hasPermission('api_get_users')){
+      $users = new User();
+      $users = $users->loadAll();
+      echo json_encode($users->fetchAll());
+    }else{
+      header("HTTP/1.1 401 Unauthorized");
+      exit;
+    }
   }
 
   public function getFiles()
   {
-    $files = new File();
-    $files = $files->loadAll();
-    echo json_encode($files->fetchAll());
+    if(User::hasPermission('api_get_files')){
+      $files = new File();
+      $files = $files->loadAll();
+      echo json_encode($files->fetchAll());
+    }else{
+      header("HTTP/1.1 401 Unauthorized");
+      exit;
+    }
   }
 
   public function getGroups()
   {
-    $groups = new Group();
-    $groups = $groups->loadAll();
-    echo json_encode($groups->fetchAll());
+    if(User::hasPermission('api_get_groups')){
+      $groups = new Group();
+      $groups = $groups->loadAll();
+      echo json_encode($groups->fetchAll());
+    }else{
+      header("HTTP/1.1 401 Unauthorized");
+      exit;
+    }
   }
 
 }

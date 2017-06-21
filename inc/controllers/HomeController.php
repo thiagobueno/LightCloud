@@ -36,6 +36,11 @@ class HomeController extends Controller
     echo $this->templates->render('settings');
   }
 
+  public function not_found()
+  {
+    echo $this->templates->render('errors/not_found');
+  }
+
   public function updateUser()
   {
     if(!empty($_POST['name']) && !empty($_POST['email']))

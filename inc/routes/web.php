@@ -29,13 +29,10 @@ $router->post('/notifications/delete', 'NotificationsController@delete');
 /** Auth **/
 Auth::routes($router);
 
-/** Tests **/
-$router->get('/test', function(){
-  $notif = new Notification();
-  $notif->add([
-    'title' => 'test',
-    'content' => 'Ceci est un autre test',
-    'icon' => 'fa fa-test',
-    'email' => 'contact@roch-blondiaux.com'
-  ]);
+/** Errors **/
+$router->get('/404', 'HomeController@not_found');
+$router->set404(function() {
+    header('HTTP/1.1 404 Not Found');
+    header('Location: ' . APP_URL . '/404');
+    exit;
 });
