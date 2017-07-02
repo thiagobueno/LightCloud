@@ -9,7 +9,7 @@
         <input class="form-control" type="text" name="host" placeholder="Please enter the host of the database" required autofocus>
         <br>
         <label for="charset">Charset</label>
-        <input class="form-control" type="text" name="charset" placeholder="Please enter the charset of the database" required>
+        <input class="form-control" type="text" name="charset" placeholder="Please enter the charset of the database" value="utf8" required>
         <br>
         <label for="port">Port</label>
         <input class="form-control" type="number" name="port" placeholder="Please enter the port of the database" value="3306" required>

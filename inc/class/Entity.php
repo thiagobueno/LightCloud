@@ -129,13 +129,13 @@ abstract class Entity
 
   public function checkTable()
   {
-    $query = 'SELECT count(*) as numRows FROM sqlite_master WHERE type="table" AND name="'.$this->table.'"';
+    $query = 'SELECT count(*) as numRows FROM '.$this->table;
     $query = $this->getPdo()->prepare($query);
     $return = $query->execute();
 
     if($return != false)
     {
-      $return = $return->fetch();
+      $return = $query->fetch();
       if($return['numRows'] == 1){
 				$return = true;
 			}

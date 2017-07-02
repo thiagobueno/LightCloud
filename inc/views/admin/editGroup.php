@@ -46,7 +46,7 @@ $group = $group->fetch();
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <select class="form-control" name="admin" required>
                   <option value="0" <?php if($group['admin'] == 0){ ?>selected<?php } ?>>No</option>
-                  <<option value="1" <?php if($group['admin'] == 1){ ?>selected<?php } ?>>Yes</option>
+                  <option value="1" <?php if($group['admin'] == 1){ ?>selected<?php } ?>>Yes</option>
                 </select>
               </div>
             </div>
@@ -82,8 +82,8 @@ $group = $group->fetch();
           <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Name</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -93,8 +93,8 @@ $group = $group->fetch();
               while($data = $permissions->fetch()){
                 ?>
                 <tr>
-                  <th><?=$data['ID']?></th>
                   <th><?=$data['name']?></th>
+                  <th><button id="<?=$group['ID']?>" permission="<?=data['name']?>" class="btn btn-danger btn-sm deleteBtn"><i class="fa fa-trash"></i> Delete</button></th>
                 </tr>
               <?php } ?>
             </tbody>
@@ -119,7 +119,29 @@ $group = $group->fetch();
         </div>
         <div class="x_content">
           <br />
-
+          <form id="permissionsAddForm" data-parsley-validate class="form-horizontal form-label-left">
+            <input name="ID" value="<?=GROUP_ID?>" required readonly hidden/>
+            <div class="form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select class="form-control" name="permission" required>
+                  <?php
+                  $g = new Group();
+                  $g->getByID($group['ID']);
+                  $permissions = json_decode(file_get_contents(__DIR__ . '/../../../storage/permissions.json'));
+                  foreach ($permissions as $key => $value) {
+                  ?>
+                    <option <?php if($g->hasPermission($key)){ ?>disabled<?php } ?>><?=$key?></option>
+                  <?php } ?>
+                </select>
+              </div>
+            </div>
+            <div class="ln_solid"></div>
+            <div class="form-group">
+              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <button type="submit" class="btn btn-success">Add</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -150,6 +172,34 @@ $group = $group->fetch();
       url: "<?=APP_URL?>/admin/groups/edit",
       type: "POST",
       data: $(this).serialize(),
+      success: function(data)
+      {
+        $("#result").html(data);
+      }
+    });
+  });
+
+  $("#permissionsAddForm").on("submit", function(e){
+    e.preventDefault();
+    $.ajax({
+      url: "<?=APP_URL?>/admin/permissions/add",
+      type: "POST",
+      data: $(this).serialize(),
+      success: function(data)
+      {
+        $("#result").html(data);
+      }
+    });
+  });
+
+  $(".deleteBtn").on("click", function(){
+    var name = $(this).attr("permission");
+    var group = $(this).attr("ID");
+
+    $.ajax({
+      url: "<?=APP_URL?>/admin/permissions/delete",
+      type: "POST",
+      data: "permission="+name+"&ID="+group,
       success: function(data)
       {
         $("#result").html(data);

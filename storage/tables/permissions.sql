@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 20 Juin 2017 à 19:50
+-- Généré le :  Dim 02 Juillet 2017 à 11:52
 -- Version du serveur :  10.1.21-MariaDB
 -- Version de PHP :  5.6.30
 
@@ -38,8 +38,15 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`ID`, `name`, `group_ID`, `value`) VALUES
-(1, 'upload_files', 0, 1),
-(2, 'download_files', 0, 1);
+(1, 'upload_files', 1, 1),
+(2, 'download_files', 1, 1),
+(3, 'admin_menu', 1, 1),
+(4, 'admin_home', 1, 1),
+(5, 'admin_files', 1, 1),
+(6, 'admin_users', 1, 1),
+(7, 'admin_groups', 1, 1),
+(8, 'admin_settings', 1, 1),
+(9, 'admin_edit_groups', 1, 1);
 
 --
 -- Index pour les tables exportées
@@ -59,7 +66,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT pour la table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -69,7 +69,7 @@ class AdminController extends Controller
       ]))
       {
         $alert = new Alert('SUCCESS', 'The group has been updated successfully', 'fa fa-check-circle', 'success');
-        $alert->setRedirection(5, APP_URL . '/admin/groups/edit/' . $_POST['ID']);
+        $alert->setRedirection(3, APP_URL . '/admin/groups/edit/' . $_POST['ID']);
         echo $alert->render();
       }else{
         $alert = new Alert('ERROR', 'While updating group !', 'fa fa-close', 'error');
@@ -92,7 +92,7 @@ class AdminController extends Controller
       if(file_put_contents(__DIR__ . '/../../config/app.php', $file))
       {
         $alert = new Alert('SUCCESS', 'The configuration of your application has been saved successfully !', 'fa fa-check-circle', 'success');
-        $alert->setRedirection(5, APP_URL . '/admin/settings');
+        $alert->setRedirection(3, APP_URL . '/admin/settings');
         echo $alert->render();
       }else{
         $alert = new Alert('ERROR', 'Please make sure that the file <code>storage/config/app.php</code> have <code>644</code> permissions !', 'fa fa-close', 'error');
@@ -117,10 +117,55 @@ class AdminController extends Controller
       if(file_put_contents(__DIR__ . '/../../config/database.php', $file))
       {
         $alert = new Alert('SUCCESS', 'The configuration of your database has been saved successfully !', 'fa fa-check-circle', 'success');
-        $alert->setRedirection(5, APP_URL . '/admin/settings');
+        $alert->setRedirection(3, APP_URL . '/admin/settings');
         echo $alert->render();
       }else{
         $alert = new Alert('ERROR', 'Please make sure that the file <code>storage/config/database.php</code> have <code>644</code> permissions !', 'fa fa-close', 'error');
+        echo $alert->render();
+      }
+    }else{
+      $alert = new Alert('ERROR', 'Missing arguments !', 'fa fa-close', 'error');
+      echo $alert->render();
+    }
+  }
+
+  public function addPermission()
+  {
+    if(!empty($_POST['ID']) && !empty($_POST['permission']))
+    {
+      $p = new Permission();
+      if($p->add([
+        'name' => $_POST['permission'],
+        'group_ID' => $_POST['ID'],
+        'value' => 1
+      ])){
+        $alert = new Alert('SUCCESS', 'The permission has been added successfully !', 'fa fa-check-circle', 'success');
+        $alert->setRedirection(3, APP_URL . '/admin/groups/edit/' . $_POST['ID']);
+        echo $alert->render();
+      }else{
+        $alert = new Alert('ERROR', 'Missing arguments !', 'fa fa-close', 'error');
+        echo $alert->render();
+      }
+    }else{
+      $alert = new Alert('ERROR', 'Missing arguments !', 'fa fa-close', 'error');
+      echo $alert->render();
+    }
+  }
+
+  public function deletePermission()
+  {
+    if(!empty($_POST['ID']) && !empty($_POST['permission']))
+    {
+      $query = Database::instance()->prepare('DELETE FROM permissions WHERE name=:name AND group_ID=:ID');
+      if($query->execute([
+        'name' => $_POST['permission'],
+        'ID' => $_POST['ID']
+        ])){
+        $alert = new Alert('SUCCESS', 'The permission has been deleted successfully !', 'fa fa-check-circle', 'success');
+        $alert->setRedirection(3, APP_URL . '/admin/groups/edit/' . $_POST['ID']);
+        echo $alert->render();
+      }else{
+        $alert = new Alert('ERROR', 'While deleting permission !', 'fa fa-close', 'error');
         echo $alert->render();
       }
     }else{

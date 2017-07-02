@@ -45,7 +45,7 @@ class InstallationController extends Controller
         if(file_put_contents(__DIR__ . '/../../config/app.php', $file))
         {
           $alert = new Alert('SUCCESS', 'The configuration of your application has been saved successfully !', 'fa fa-check-circle', 'success');
-          $alert->setRedirection(5, APP_URL . '/installation/database');
+          $alert->setRedirection(3, APP_URL . '/installation/database');
           echo $alert->render();
           exit(0);
         }else{
@@ -104,8 +104,15 @@ class InstallationController extends Controller
         $file = str_replace($search, $replace, $file);
         if(file_put_contents(__DIR__ . '/../../config/database.php', $file))
         {
+          $pdo = Database::instance();
+          $tables = array('files', 'groups', 'notifications', 'permissions', 'users');
+          foreach ($tables as $key) {
+            $query = $pdo->prepare(file_get_contents(__DIR__ . '/../../storage/tables/' . $key . '.sql'));
+            $query->execute();
+          }
+
           $alert = new Alert('SUCCESS', 'The configuration of your database has been saved successfully !', 'fa fa-check-circle', 'success');
-          $alert->setRedirection(5, APP_URL . '/installation/user');
+          $alert->setRedirection(3, APP_URL . '/installation/user');
           echo $alert->render();
           exit(0);
         }else{
@@ -140,7 +147,7 @@ class InstallationController extends Controller
     ]);
 
     $alert = new Alert('SUCCESS', 'The user has been created successfuly !', 'fa fa-check-circle', 'success');
-    $alert->setRedirection(5, APP_URL . '/installation/finish');
+    $alert->setRedirection(3, APP_URL . '/installation/finish');
     echo $alert->render();
     exit(0);
   }

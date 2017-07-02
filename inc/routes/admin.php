@@ -19,3 +19,5 @@ $router->get('/admin/settings', 'AdminController@settings');
 $router->post('/admin/app/update', 'AdminController@updateApp');
 $router->post('/admin/database/update', 'AdminController@updateDatabase');
 $router->post('/admin/groups/edit', 'AdminController@editGroup_');
+$router->post('/admin/permissions/add', 'AdminController@addPermission');
+$router->post('/admin/permissions/delete', 'AdminController@deletePermission');
