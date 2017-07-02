@@ -50,7 +50,7 @@ $groups = $groups->loadAll();
                   <th><?=$data['ID']?></th>
                   <th><?=$data['name']?></th>
                   <th><?php if($data['admin'] == 1){ ?> <span class="label label-success">Admin</span> <?php }else{ ?> <span class="label label-danger">Other</span> <?php } ?></th>
-                  <th>SOON</th>
+                  <th><?php if(User::hasPermission('admin_edit_groups')){ ?><a href="<?=APP_URL?>/admin/groups/edit/<?=$data['ID']?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a><?php } ?></th>
                 </tr>
               <?php } ?>
             </tbody>

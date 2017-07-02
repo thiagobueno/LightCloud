@@ -49,6 +49,38 @@ class AdminController extends Controller
     echo $this->templates->render('groups');
   }
 
+  public function editGroup($ID)
+  {
+    define('GROUP_ID', $ID);
+
+    if(User::hasPermission('admin_edit_groups'))
+    echo $this->templates->render('editGroup');
+  }
+
+  public function editGroup_()
+  {
+    if(!empty($_POST['ID']) && !empty($_POST['name']) && $_POST['admin'] != null)
+    {
+      $query = Database::instance()->prepare('UPDATE groups SET name=:name, admin=:admin WHERE ID=:ID');
+      if($query->execute([
+        'name' => $_POST['name'],
+        'admin' => $_POST['admin'],
+        'ID' => $_POST['ID']
+      ]))
+      {
+        $alert = new Alert('SUCCESS', 'The group has been updated successfully', 'fa fa-check-circle', 'success');
+        $alert->setRedirection(5, APP_URL . '/admin/groups/edit/' . $_POST['ID']);
+        echo $alert->render();
+      }else{
+        $alert = new Alert('ERROR', 'While updating group !', 'fa fa-close', 'error');
+        echo $alert->render();
+      }
+    }else{
+      $alert = new Alert('ERROR', 'Missing arguments !', 'fa fa-close', 'error');
+      echo $alert->render();
+    }
+  }
+
   public function updateApp()
   {
     if(!empty($_POST['name']) && !empty($_POST['url']))

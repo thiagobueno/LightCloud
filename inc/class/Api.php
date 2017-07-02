@@ -12,15 +12,14 @@ class Api
 
   public function __construct()
   {
-    //Auth
-
+   //Auth
   }
 
   public static function routes($router)
   {
-    $router->post('/api/users/get', 'ApiController@getUsers');
-    $router->post('/api/files/get', 'ApiController@getFiles');
-    $router->post('/api/groups/get', 'ApiController@getGroups');
+    $router->get('/api/users/get', 'ApiController@getUsers');
+    $router->get('/api/files/get', 'ApiController@getFiles');
+    $router->get('/api/groups/get', 'ApiController@getGroups');
   }
 
 
